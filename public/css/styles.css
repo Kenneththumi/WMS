@@ -1,0 +1,239 @@
+#app,#register,#wrapper-404{
+    overflow: hidden;
+    background: url("../images/bg_image.jpg")  no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.yield-wrapper{
+    padding: 20px;
+}
+.register-body{
+    width: 90%;
+    margin: auto;
+}
+
+/* css for left vertical menu */
+/* define a fixed width for the entire menu */
+.navigation {
+    width: 100%;
+    height: 566px;
+    background: #CCC;
+}
+
+/* reset our lists to remove bullet points and padding */
+.mainmenu, .submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* make ALL links (main and submenu) have padding and background color */
+.mainmenu a {
+    display: block;
+    background-color: #CCC;
+    text-decoration: none;
+    padding: 10px;
+    color: #000;
+}
+
+/* add hover behaviour */
+.mainmenu a:hover {
+    background-color: #C5C5C5;
+}
+
+
+/* when hovering over a .mainmenu item,
+  display the submenu inside it.
+  we're changing the submenu's max-height from 0 to 200px;
+*/
+
+.mainmenu li:hover .submenu {
+    display: block;
+    max-height: 300px;
+}
+
+/*
+  we now overwrite the background-color for .submenu links only.
+  CSS reads down the page, so code at the bottom will overwrite the code at the top.
+*/
+
+.submenu a {
+    background-color: #999;
+    text-align: center;
+}
+
+/* hover behaviour for links inside .submenu */
+.submenu a:hover {
+    background-color: #666;
+}
+
+/* this is the initial state of all submenus.
+  we set it to max-height: 0, and hide the overflowed content.
+*/
+.submenu {
+    overflow: hidden;
+    max-height: 0;
+    -webkit-transition: all 0.5s ease-out;
+}
+.navigation li{
+    border-bottom:1px solid black;
+}
+/*.navigation li:last-child{
+    border-bottom:0px;
+}*/
+.hav-sub > a::after{
+    content:'+';
+    color:#000;
+    float:right;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.navigation>ul>li:last-child{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+/* navtop */
+.navtop{
+    /*width: 1370px;*/
+    background: #34b787;
+}
+.navbar-brand{
+    color: black;
+    font-size: 25px;
+}
+.navbar-brand:hover{
+    color: black;
+}
+.profile{
+    width: 70%;
+    margin: auto;
+}
+.pagination{
+    margin:0 0;
+}
+.pd-form{
+    padding: 0px 60px;
+}
+
+.separator{
+    color: black;
+}
+.btn-current{
+    background-color: #0288d1;
+    color: #Ffffff;
+    transition: all 0.5s ease-in-out;
+}
+.btn-current:hover{
+    background-color: #01579b;
+    color: #ffffff;
+}
+.bw a{
+    color: #Ffffff;
+}
+
+.btn-a_feedback{
+    background-color: #8d6e63;
+    color: #Ffffff;
+    transition: all 0.5s ease-in-out;
+}
+.btn-a_feedback:hover{
+    background-color: #6d4c41;
+    color: #ffffff;
+}
+.btn-revision{
+    background-color: #ff9100;
+    color: #Ffffff;
+    transition: all 0.5s ease-in-out;
+}
+.btn-revision:hover{
+    background-color: #ff6d00;
+    color: #ffffff;
+}
+.btn-cancelled{
+    background-color: #ff3d00;
+    color: #Ffffff;
+    transition: all 0.5s ease-in-out;
+}
+.btn-cancelled:hover{
+    background-color: #dd2c00;
+    color: #ffffff;
+}
+.btn-completed{
+    background-color: #00e676;
+    color: #Ffffff;
+    transition: all 0.5s ease-in-out;
+}
+.btn-completed:hover{
+    background-color: #00c853;
+    color: #ffffff;
+}
+.btn-available{
+    background-color: #757575;
+    color: #Ffffff;
+    transition: all 0.5s ease-in-out;
+}
+.btn-available:hover{
+    background-color: #424242;
+    color: #ffffff;
+}
+
+.mf-form{
+    padding: 0px 35px;
+}
+
+.order-page{
+    width: 95%;
+ }
+.pd-form-1{
+    padding:0 20px;
+}
+
+/* register page */
+.hidden,.hidden-1{
+    display: none;
+}
+/* nop nav */
+.dropdown-toggle{
+    background-color: transparent;
+    color: #ffffff;
+}
+.navbar-brand {
+
+    float: left;
+    padding: 0px 0px;
+    font-size: 18px;
+    line-height: 0px;
+    height: auto;
+}
+
+td,th{
+    text-align: center;
+}
+tr td:first-child{
+    text-align: left;
+}
+
+/*
+navtop*/
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: transparent;
+}
+.nav > li > a:focus, .nav > li > a:hover {
+    background-color: transparent;
+}
+/*404*/
+#wrapper-404{
+    height: 657px;
+    padding-top: 150px;
+}
+.content-404 {
+    text-align: center;
+    color: white;
+}
+.content-404 h1{
+    font-size: 88px;
+}
