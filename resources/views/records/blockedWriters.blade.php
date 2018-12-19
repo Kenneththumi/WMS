@@ -4,11 +4,15 @@
         <div class="panel panel-danger panel-table">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col col-xs-6">
+                    <div class="col-md-4">
                         <div class="panel-title">Blocked Writers</div>
                     </div>
-                    <div class="col-md-6">
-                       &nbsp;                    </div>
+                    <div class="col-md-4">
+                        {{Form::open(array('url'=>'/searchblockedwriters','method'=>'post'))}}
+                        {{csrf_field()}}
+                        {{Form::text('search',null,['class'=>'form-control','placeholder'=>'search first name','required'=>''])}}
+                        {{Form::close()}}
+                    </div>
                 </div>
             </div>
             <form action="{{route('del')}}" method="post">

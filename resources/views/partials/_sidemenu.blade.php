@@ -19,6 +19,7 @@
                 <li><a href="{{route('cancelledOrders')}}">Cancelled</a></li>
                 <li><a href="{{route('revisionOrders')}}">Revision</a></li>
                 <li><a href="{{route('acceptedOrders')}}">Completed</a></li>
+                <li><a href="{{route('ordersRating')}}">Orders Rating</a></li>
             </ul>
         </li>
         <li><a href="{{route('feedback')}}"><i class="fa fa-comments-o" aria-hidden="true"></i>

@@ -59,6 +59,9 @@ Route::post('/delOrders','OrderController@deleteOrders')->name('delOrders')->mid
 Route::get('/delOrder/{id}','OrderController@destroy')->name('delOrder')->middleware('admin');
 Route::get('/allocate/{id}', ['uses'=>'OrderController@allocate','middleware'=>'assignOrder'])->middleware('admin');
 Route::post('/allocateOrder/{id}',['uses'=>'OrderController@allocateOrder','middleware'=>'assignOrder'])->name('allocateOrder')->middleware('admin');
+Route::post('/moveAvailable',['uses'=>'OrderController@moveAvailable','middleware'=>'admin'])->name('moveAvailable');
+Route::get('/ordersRating', 'OrderController@ordersRating')->name('ordersRating');
+Route::post('/delOrderRatings',['uses'=>'OrderController@delOrderRatings', 'middleware'=>'admin'])->name('delOrderRatings');
 //available orders
 Route::get('/availableOrders','OrderController@getAvailableOrders')->name('availableOrders');
 //current orders
@@ -85,3 +88,8 @@ Route::post('/uploadWork', 'OrderController@uploadWork')->name('uploadWork')->mi
 //Feedback
 Route::get('/getFeedback', 'Feedback@index')->name('feedback');
 Route::post('/delFeedback','Feedback@delete')->name('delFeedback');
+
+//search
+Route::post('/searchwriters','UserController@searchWriters');
+Route::post('/searchnewwriters','UserController@searchNewWriters');
+Route::post('/searchblockedwriters','UserController@searchBlockedWriters');

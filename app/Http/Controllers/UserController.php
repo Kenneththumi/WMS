@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = UserAlias::where('role','>','0')->simplePaginate(5);
+        $users = UserAlias::where('role','<','3')->where('role','>','0')->simplePaginate(5);
 
         $this->getRole($users);
 
@@ -48,6 +48,63 @@ class UserController extends Controller
         }
 
         return $user;
+    }
+    //search users
+    public function searchWriters(Request $request){
+        $needle = $request->search;
+        if(empty($needle)){
+            return back()
+                        ->withErrors(' Please insert a name to search');
+        }
+
+
+        $users = UserAlias::where('fname','LIKE','%'.$needle.'%')
+            ->where('role','<','3')->where('role','>','0')
+                        ->simplePaginate(6);
+
+        $this->getRole($users);
+
+
+
+        return view('records.writers', compact('users'));
+    }
+    //search new users
+    public function searchNewWriters(Request $request){
+        $needle = $request->search;
+
+        if(empty($needle)){
+            return back()
+                ->withErrors(' Please insert a name to search');
+        }
+
+        $users = UserAlias::where('role',0)->where('account',1)
+                            ->where('fname','LIKE','%'.$needle.'%')
+                            ->simplePaginate(5);
+
+        $this->getRole($users);
+
+
+
+        return view('records.newWriters', compact('users'));
+    }
+    //search new users
+    public function searchBlockedWriters(Request $request){
+        $needle = $request->search;
+
+        if(empty($needle)){
+            return back()
+                ->withErrors(' Please insert a name to search');
+        }
+
+        $users = UserAlias::where('role',0)->where('account',0)
+            ->where('fname','LIKE','%'.$needle.'%')
+            ->simplePaginate(5);
+
+        $this->getRole($users);
+
+
+
+        return view('records.blockedWriters', compact('users'));
     }
 
     /**

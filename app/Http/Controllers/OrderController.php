@@ -284,6 +284,10 @@ class OrderController extends Controller
                 $order->messages()->delete();
             }
 
+            if($order->orderratings()->exists()){
+                $order->orderratings()->delete();
+            }
+
             $order->delete();
 
             return 'ok';
@@ -603,6 +607,68 @@ class OrderController extends Controller
         }
 
         return $order;
+    }
+    //move order to Available
+    public function moveAvailable(Request $request){
+        //validate input
+        $this->validate($request, [
+            'id' => 'required',
+        ]);
+
+        $order = Order::findOrFail($request->id);
+
+        if($order->filewriter()->exists()){
+            //Remove file associated, uploaded by the writer, with the order
+            $this->fileWriterDel($order);
+            //Remove file records uploaded by writer,(minding server space)
+            $order->filewriter()->delete();
+        }
+
+        if($order->orderratings()->exists()){
+            $order->orderratings()->delete();
+        }
+
+        //update status to available
+        $order->update(['status'=>'available', 'user_id'=>'']);
+
+        return redirect()
+                        ->route('availableOrders')
+                        ->with('message',' Order moved to available orders');
+    }
+    // get ordersRating
+    public function ordersRating(){
+        if(auth()->user()->isAdmin() || auth()->user()->isSuperAdmin()) {
+            $orders = Order::has('orderratings')->paginate(6);
+
+            return view('records.ordersRatings', compact('orders'));
+        }else{
+            $orders = Order::where('user_id',auth()->user()->id)->has('orderratings')->paginate(6);
+
+            return view('records.writer.ordersRatings', compact('orders'));
+        }
+    }
+
+    public function delOrderRatings(Request $request)
+    {
+
+        if (empty($request->chk)) {
+            return back()->withErrors('No selection was made');
+        }
+
+        $items = count($request->chk);
+
+        for ($i = 0; $i < $items; $i++) {
+            $id = $request->chk[$i];
+
+            $order = Order::findOrFail($id);
+
+            $order->orderratings()->delete();
+        }
+
+
+        return redirect('/ordersRating')
+            ->with('message', ' Item(s) deleted');
+
     }
 
 }

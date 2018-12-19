@@ -72,10 +72,24 @@
 
                     <div class="col-md-12">
                         <div class="col-md-4">
-                        <div class="pull-left"><strong>Rating(%):</strong>{{( (($user->rating['completed']/$user->rating['total'])*100) + $user->rating['grammar'] + $user->rating['speed'] + $user->rating['instructions'])/4}}</div>
+                        <div class="pull-left"><strong>Rating(%):</strong>
+                            <?php
+                            if( $user->rating()->exists() ){
+                                $rating = ( (($user->rating['completed']/$user->rating['total'])*100)
+                                        + $user->rating['grammar']
+                                        + $user->rating['speed']
+                                        + $user->rating['instructions'])/4;
+
+                                echo $rating;
+                            }else{
+                                echo 'Not Rated';
+                            }
+
+                            ?>
+                        </div>
                         </div>
                         <div class="col-md-4">
-                        <div class="pull-left"><strong>Conversion(%):</strong>{{ ($user->rating['completed']/$user->rating['total'])*100}}</div>
+                        <div class="pull-left"><strong>Conversion(%):</strong>{{ $user->rating()->exists()?($user->rating['completed']/$user->rating['total'])*100 :''}}</div>
                         </div>
                         <div class="col-md-4">
                             <div class="pull-left"><strong>Jobs:</strong>{{$user->rating['total'] }}</div>

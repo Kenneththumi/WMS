@@ -6,14 +6,21 @@
         <div class="panel panel-info">
             <div class="panel-heading">Order
                 @if(auth()->user()->isAdmin() || auth()->user()->isSuperAdmin())
+                    @if($order->status =='a_feedback' || $order->status =='current' || $order->status =='cancelled' || $order->status =='revision')
+                        <form action="{{route('moveAvailable')}}" method="post" style="float: right;">
+                            {{csrf_field()}}
+                            <input type="hidden" name="id" value="{{$order->id}}">
+                            <button   class="btn btn-sm btn-info" >
+                                Move To Available
+                            </button>
+                        </form>
+                    @endif
                 <div class="pull-right">
+                    
                     @if($order->status =='current'  || $order->status =='available' || $order->status =='revision')
                     <a  href="{{route('editOrder',$order->id)}}" class="btn btn-sm btn-warning" >
                         <em class="fa fa-pencil"></em>
-                    </a>
-                    {{--<a  href="{{route('delOrder',$order->id)}}" class="btn btn-sm btn-danger delete" >
-                        <em class="fa fa-trash"></em>
-                    </a>--}}
+                    </a>&nbsp;
                     @endif
                 </div>
                     @endif
