@@ -32,8 +32,8 @@
                             <td><a href="{{ route('getOrder',$message->order_id) }}" class="btn btn-{{$message->order()->first()->status}} btn-sm">{{$message->order()->first()->order_id}}</a></td>
                             <td>
                                 <a href="{{ route('getWriter',$message->order()->first()->user_id) }}" class="btn btn-info btn-sm">
-                                {{ucwords($message->order()->first()->user()->first()->fname)}}{{' '}}
-                                {{ucwords($message->order()->first()->user()->first()->lname)}}
+                                    {{ucwords($message->order()->first()->user()->first()->fname)}}{{' '}}
+                                    {{ucwords($message->order()->first()->user()->first()->lname)}}
                                 </a>
                             </td>
                             <td>{!! $message->message !!}</td>

@@ -64,7 +64,10 @@ class Order extends Model
             return $this->hasMany('App\Message');
         }
         public function applications(){
-           return$this->hasMany('App\Application');
+           return $this->hasMany('App\Application');
+        }
+        public function orderratings(){
+            return $this->hasOne('App\OrderRating');
         }
         //checks if order is editable
         public function editable(){

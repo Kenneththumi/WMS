@@ -36,6 +36,12 @@
                                     <input class="form-control input-sm" type="number" name="speed" placeholder="Speed Rating (%)"  required/>
                                 </div>
                             </div>
+                            <div class="col-md-4 mf-form">
+                                <div class="form-group">
+                                    <label>Originality</label>
+                                    <input class="form-control input-sm" type="number" name="originality" placeholder="Originality Rating (%)"  required/>
+                                </div>
+                            </div>
                             {{--end rating--}}
                             <div class="col-md-12"   style="padding: 5px 60px;">
                                 <input class="btn btn-sm btn-success pull-right" type="submit" value="submit"/>

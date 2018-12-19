@@ -29,6 +29,8 @@
                                 <br>
                                 <div><strong>Topic:&nbsp;</strong>{{$order->topic}}</div>
                                 <br>
+                                <br>
+                                <div><strong>Words:&nbsp;</strong>{{$order->words}}</div>
                             </div>
                             <div class="col-md-3">
                                 <div><strong>Discipline:&nbsp;</strong>{{$order->discipline}}</div>
@@ -36,6 +38,7 @@
                                 <div><strong>Style:&nbsp;</strong>{{$order->style}}</div>
                                 <br>
                                 <div><strong>Pages:&nbsp;</strong>{{$order->pages}}</div>
+
                             </div>
                             <div class="col-md-3">
                                 <div><strong>Compensation(<i class="fa fa-usd" aria-hidden="true"></i>):&nbsp;</strong>{{$order->amount}}</div>

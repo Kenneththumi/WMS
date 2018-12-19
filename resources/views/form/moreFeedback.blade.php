@@ -16,8 +16,8 @@
                                 <hr>
                                 {{--state--}}
                                 <div class="col-md-4 pd-form">
-                                        <label>Accepted</label>
-                                        <input type="radio" name="state" value="accepted"/>
+                                        <label>Completed</label>
+                                        <input type="radio" name="state" value="completed"/>
                                 </div>
                                 <div class="col-md-4 pd-form">
                                     <label>Revision</label>

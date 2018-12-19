@@ -32,7 +32,7 @@
                                 <div class="col-md-4 pd-form">
                                     <div class="form-group  {{ $errors->has('discipline') ? ' has-error' : '' }}">
                                         <label>Discipline</label>
-                                        {{ Form::select('discipline',$order->user()->first()->proficiencies
+                                        {{ Form::select('discipline',$proficiencies
                                         , $order->discipline, ['class' => 'form-control  input-sm','required'=>'']) }}
 
                                         @if ($errors->has('discipline'))
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 pd-form">
+                                {{--<div class="col-md-4 pd-form">
                                     <div class="form-group {{ $errors->has('words') ? ' has-error' : '' }}">
                                         <label>Words</label>
                                         <input class="form-control input-sm" type="number" name="words"  value="{{ $order->words }}" required=""/>
@@ -78,7 +78,7 @@
                                     </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div>--}}
 
                                 <div class="col-md-4 pd-form">
                                     <div class="form-group {{ $errors->has('pages') ? ' has-error' : '' }}">
@@ -93,7 +93,7 @@
 
                                 </div>
 
-                                <div class="col-md-4 pd-form">
+                                {{--<div class="col-md-4 pd-form">
                                     <div class="form-group {{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <label>Amount (Ksh)</label>
                                         <input class="form-control input-sm" type="number" name="amount" value="{{ $order->amount }}" required=""/>
@@ -104,7 +104,7 @@
                                         @endif
                                     </div>
 
-                                </div>
+                                </div>--}}
 
 
                                 <div class="col-md-4 pd-form" >

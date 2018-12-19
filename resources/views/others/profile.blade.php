@@ -72,10 +72,10 @@
 
                     <div class="col-md-12">
                         <div class="col-md-4">
-                        <div class="pull-left"><strong>Rating:</strong>{{($user->rating['conversion'] + $user->rating['grammar'] + $user->rating['speed'] + $user->rating['instructions'])/4}}</div>
+                        <div class="pull-left"><strong>Rating(%):</strong>{{( (($user->rating['completed']/$user->rating['total'])*100) + $user->rating['grammar'] + $user->rating['speed'] + $user->rating['instructions'])/4}}</div>
                         </div>
                         <div class="col-md-4">
-                        <div class="pull-left"><strong>Conversion:</strong>{{$user->rating['conversion'] }}</div>
+                        <div class="pull-left"><strong>Conversion(%):</strong>{{ ($user->rating['completed']/$user->rating['total'])*100}}</div>
                         </div>
                         <div class="col-md-4">
                             <div class="pull-left"><strong>Jobs:</strong>{{$user->rating['total'] }}</div>

@@ -37,8 +37,8 @@ class OrderController extends Controller
             $orders = Order::paginate(6);
             return view('records.orders',compact('orders'));
         }else{
-            $orders = Order::where('status','available')->paginate(6);
-            return view('records.writer.available',compact('orders'));
+            $orders = Order::where('user_id',auth()->user()->id)->paginate(6);
+            return view('records.writer.myorders',compact('orders'));
         }
 
     }
@@ -90,10 +90,14 @@ class OrderController extends Controller
             'paper_type'=>'required',
             'level'=>'required',
             'pages' => 'required|numeric|min:0',
-            'words' => 'required|numeric|min:0',
-            'amount' => 'required|numeric|min:0',
+            //'words' => 'required|numeric|min:0',
+            //'amount' => 'required|numeric|min:0',
             'file' => 'mimes:jpeg,png,jpg,gif,doc,pdf,ppt,txt,pptx,docx,xslx,csv|max:2048',
         ]);
+
+        /*if(substr($request->file->getClientOriginalName(), strripos($request->file->getClientOriginalName(), '.')+1) !=  ){
+
+        }*/
 
         $order = new Order();
 
@@ -120,9 +124,9 @@ class OrderController extends Controller
             'level'=>$request->level,
             'status'=>'available',
             'user_id'=>0,
-            'words' => $request->words,
+            'words' => $request->pages * 275,//one page is 275 words
             'instructions' => $request->instructions,
-            'amount' => $request->amount,
+            'amount' => $request->pages * 2.5, //presuming on page is $2.5
         ]);
         $ordr = Order::where('order_id',$request->order)->firstOrFail();
 
@@ -167,7 +171,11 @@ class OrderController extends Controller
         //if external link exists for this model
         $link=$order->files()->exists()? $order->files->first()->link : '';
 
-        return view('form.editOrder', compact('order','link'));
+        $proficiencies = new User();
+        $proficiencies =$proficiencies->proficiencies;
+
+
+        return view('form.editOrder', compact('order','link','proficiencies'));
     }
 
     /**
@@ -190,8 +198,8 @@ class OrderController extends Controller
             'paper_type'=>'required',
             'level'=>'required',
             'pages' => 'required|numeric|min:0',
-            'words' => 'required|numeric|min:0',
-            'amount' => 'required|numeric|min:0',
+            /*'words' => 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:0',*/
             'file' => 'mimes:jpeg,png,jpg,gif,doc,pdf,ppt,pptx,txt,docx,xslx,csv|max:2048',
         ]);
 
@@ -217,12 +225,12 @@ class OrderController extends Controller
             'sources' => $request->sources,
             'style' => $request->style,
             'pages' => $request->pages,
-            'words' => $request->words,
             'writing_type' =>$request->writing_type,
             'paper_type'=>$request->paper_type,
             'level'=>$request->level,
             'instructions' => $request->instructions,
-            'amount' => $request->amount,
+            'words' => $request->pages * 275,//one page is 275 words
+            'amount' => $request->pages * 2.5, //presuming one page is $2.5
         ]);
 
         if($order->files()->exists()){
@@ -372,11 +380,16 @@ class OrderController extends Controller
 
     }
 
-
+//get list of available orders
     public function getAvailableOrders(){
-        $orders = Order::where('status','available')->paginate(6);
+        if(auth()->user()->isAdmin() || auth()->user()->isSuperAdmin()) {
+            $orders = Order::where('status', 'available')->paginate(6);
 
-        return view('records.available', compact('orders'));
+            return view('records.available', compact('orders'));
+        }else{
+            $orders = Order::where('status', 'available')->paginate(6);
+            return view('records.writer.available',compact('orders'));
+        }
     }
 
     public function getCurrentOrders(){
@@ -415,16 +428,20 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         $order->update(['status'=>$request->state]);
-        $order->messages()->create(['message'=>$request->message]);
+        if(!empty($request->message)){
+            $order->messages()->create(['message'=>$request->message]);
+        }
 
-        //Remove file associated, uploaded by the writer, with the order
-        $this->fileWriterDel($order);
 
         if($order->filewriter()->exists()){
+            //Remove file associated, uploaded by the writer, with the order
+            $this->fileWriterDel($order);
+            //Remove file records
             $order->filewriter()->delete();
         }
 
-        if($request->state == 'completed'){
+        if($request->state == 'completed' || $request->state == 'cancelled'){
+
             return view('form.ratings', compact('order'));
         }
 
@@ -455,14 +472,26 @@ class OrderController extends Controller
                $rating->grammar += $request->grammar;
                $rating->instructions +=  $request->instructions;
                $rating->speed += $request->speed;
+               $rating->originality += $request->originality;
                $rating->total += 1;
+               $rating->completed +=1;
                $order->status =='completed'? $rating->completed +=1:' ';
                $rating->save();
-
            }else{
-               $user->rating()
-                   ->create(['grammar'=>$request->grammar, 'instructions'=>$request->instructions, 'speed'=>$request->speed]);
+               if($order->status == 'completed'){
+                   $user->rating()
+                       ->create(['grammar'=>$request->grammar, 'instructions'=>$request->instructions, 'speed'=>$request->speed
+                           ,'originality'=>$request->originality, 'total'=>1,'completed'=>1]);
+               }elseif($order->status == 'cancelled'){
+                   $user->rating()
+                       ->create(['grammar'=>$request->grammar, 'instructions'=>$request->instructions, 'speed'=>$request->speed
+                           ,'originality'=>$request->originality, 'total'=>1]);
+               }
            }
+
+        //record ratings for the order
+           $order->orderratings()->updateOrCreate(['grammar'=>$request->grammar, 'instructions'=>$request->instructions, 'speed'=>$request->speed
+               ,'originality'=>$request->originality]);
 
         return redirect()
             ->route('orders')

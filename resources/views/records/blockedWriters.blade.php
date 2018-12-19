@@ -39,7 +39,22 @@
                                 <td>{{ $user->moreinfo['highest_qualification']}}</td>
                                 <td>{{$user->orders()->where('status','current')->count()}}</td>
                                 <td>{{$user->moreinfo['availability']}}</td>
-                                <td>{{($user->rating['conversion'] + $user->rating['grammar'] + $user->rating['speed'] + $user->rating['instructions'])/4}}</td>
+                                <td>
+                                    <?php
+                                    if( $user->rating()->exists() ){
+                                        $rating = ( (($user->rating['completed']/$user->rating['total'])*100)
+                                                + $user->rating['grammar']
+                                                + $user->rating['speed']
+                                                + $user->rating['instructions'])/4;
+
+                                        echo $rating;
+                                    }else{
+                                        echo 'Not Rated';
+                                    }
+
+                                    ?>
+
+                                     </td>
                                 <td>{{$user->rating['completed']}}</td>
                                 <td>{{str_limit( $user->moreinfo['citations'],16)}}</td>
                                 <td>{{str_limit( $user->moreinfo['proficiencies'],16)}}</td>

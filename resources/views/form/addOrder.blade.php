@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 pd-form">
+                                {{--<div class="col-md-4 pd-form">
                                     <div class="form-group {{ $errors->has('words') ? ' has-error' : '' }}">
                                         <label>Words</label>
                                         <input class="form-control input-sm" type="number" name="words" placeholder="no of words" required=""/>
@@ -80,7 +80,7 @@
                                     </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div>--}}
 
                                 <div class="col-md-4 pd-form">
                                     <div class="form-group {{ $errors->has('pages') ? ' has-error' : '' }}">
@@ -95,7 +95,7 @@
 
                                 </div>
 
-                                <div class="col-md-4 pd-form">
+                                {{--<div class="col-md-4 pd-form">
                                     <div class="form-group {{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <label>Amount (Ksh)</label>
                                         <input class="form-control input-sm" type="number" name="amount" placeholder="amount ksh"  value="{{ old('amount') }}" required=""/>
@@ -105,7 +105,7 @@
                                     </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div>--}}
 
                                 <div class="col-md-4 pd-form" >
                                     <div class="form-group  {{ $errors->has('paper_type') ? ' has-error' : '' }}">

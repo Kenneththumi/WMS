@@ -35,10 +35,7 @@ class Feedback extends Controller
             return view('records.feedback',compact('messages'));
         }
         else{
-            $messages = [];
-            if(Order::where('user_id',auth()->user()->id)->exists()){
-                $messages = Order::where('user_id',auth()->user()->id)->firstOrFail()->messages()->simplePaginate(8);
-            }
+            $messages = Order::where('user_id',auth()->user()->id)->has('messages')->simplePaginate(5);
 
             return view('records.writer.feedback',compact('messages'));
         }

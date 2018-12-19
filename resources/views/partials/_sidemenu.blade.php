@@ -13,9 +13,7 @@
         <li class="hav-sub"><a href="{{route('orders')}}"><i class="fa fa-files-o" aria-hidden="true"></i>
                 Orders</a>
             <ul class="submenu">
-                @if(auth()->user()->isAdmin() || auth()->user()->isSuperAdmin())
                 <li><a href="{{route('availableOrders')}}">Available</a></li>
-                @endif
                 <li><a href="{{route('currentOrders')}}">Current</a></li>
                 <li><a href="{{route('a_feedback')}}">Awaiting Feedback</a></li>
                 <li><a href="{{route('cancelledOrders')}}">Cancelled</a></li>

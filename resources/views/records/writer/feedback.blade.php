@@ -24,8 +24,8 @@
                     <tbody>
                     @foreach($messages as $message)
                         <tr>
-                            <td><a href="{{ route('getOrder',$message->order_id) }}" class="btn btn-{{$message->order()->first()->status}} btn-sm">{{$message->order()->first()->order_id}}</a></td>
-                            <td>{!! $message->message !!}</td>
+                            <td><a href="{{ route('getOrder',$message->id) }}" class="btn btn-{{$message->status}} btn-sm">{{$message->order_id}}</a></td>
+                            <td>{!! $message->messages()->first()->message !!}</td>
                         </tr>
                     @endforeach
                     </tbody>
